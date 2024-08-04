@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortLink.Function", "ShortLink.Function\ShortLink.Function.csproj", "{41B6F915-A424-49AB-98F6-E62A4F5EB496}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Function", "01-Function", "{9CFB819D-1154-43C5-A4A4-F52BA006B7C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Application", "02-Application", "{6ABA3C7C-1821-4E11-9EB7-7619DDC24268}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Domain", "03-Domain", "{AB8C5219-6F6B-4D5C-9FDB-F49338A8E9B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Infra", "04-Infra", "{70B3471E-9887-4F98-9F9C-76BF0BD931F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41B6F915-A424-49AB-98F6-E62A4F5EB496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B6F915-A424-49AB-98F6-E62A4F5EB496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B6F915-A424-49AB-98F6-E62A4F5EB496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B6F915-A424-49AB-98F6-E62A4F5EB496}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41B6F915-A424-49AB-98F6-E62A4F5EB496} = {9CFB819D-1154-43C5-A4A4-F52BA006B7C3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A81A6134-63DB-4CDC-A9A3-255A412D17EB}
+	EndGlobalSection
+EndGlobal
