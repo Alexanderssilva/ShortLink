@@ -1,7 +1,10 @@
 {
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
-    }
+  "ConnectionStrings": {
+    "MongoDbConnection": "mongodb://portifoliodb:6qhxwMHL2mBkHd7D2Y1aGsoX9b04jzEdjm45DWNsKhIKxzrVIBIcfZi8yZ6SW20JIGw5NLYsJlZbACDb17mIuQ%3D%3D@portifoliodb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@portifoliodb@"
+  },
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+  }
 }
