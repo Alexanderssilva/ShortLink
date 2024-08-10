@@ -2,11 +2,11 @@
 {
     public class Link
     {
-        public Guid _Id { get; set; }
+        public Guid UserId { get; set; }
         public string? Url { get; set; }
         public string? Hash { get; set; }
         public bool Active { get; set; }
-
+        public int AccesCount { get; set; }
 
     }
 }

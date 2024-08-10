@@ -16,6 +16,8 @@ namespace ShortLink.Infra
             _database = mongoClient.GetDatabase("ShortLink");
         }
         public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
-        public IMongoCollection<Link> Link => _database.GetCollection<Link>("Links");
+        public IMongoCollection<Link> Links => _database.GetCollection<Link>("Links");
+        public IMongoCollection<Log> Logs => _database.GetCollection<Log>("Logs");
+
     }
 }

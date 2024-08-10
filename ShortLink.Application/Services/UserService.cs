@@ -30,7 +30,7 @@ namespace ShortLink.Application.Services
            await userRepository.InsertUserAsync(user);
         }
         private async Task<bool> UserExists(string email) => await userRepository.GetUserAsync(email) is not null;
-        #region Passwrod Verifications
+        #region Password Verifications
         private static bool VerifyPassword(string password, string storedPassword) => HashPassword(password) == storedPassword;
         private static string HashPassword(string password)
         {
