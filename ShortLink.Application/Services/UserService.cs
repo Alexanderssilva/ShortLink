@@ -17,10 +17,10 @@ namespace ShortLink.Application.Services
                 return null;
             return user;
         }
-        public async Task<User> InsertUserAsync(string email,string password)
+        public async Task<bool> InsertUserAsync(string email,string password)
         {
             if (await UserExists(email))
-                return "Usuario já existe tente fazer o login";
+                return false;
 
             User user = new()
             {
@@ -28,6 +28,10 @@ namespace ShortLink.Application.Services
                 Password=HashPassword(password)
             };
            await userRepository.InsertUserAsync(user);
+            //confirmar vir email a inscrição
+            //redirecionar a tela de login
+            return true;
+
         }
         private async Task<bool> UserExists(string email) => await userRepository.GetUserAsync(email) is not null;
         #region Password Verifications
