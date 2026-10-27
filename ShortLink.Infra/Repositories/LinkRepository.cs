@@ -30,6 +30,13 @@ public class LinkRepository(MongoContext context) : ILinkRepository
         return await context.Links.Find(filter).FirstOrDefaultAsync();
     }
 
+    public async Task IncrementAccessCountAsync(string code)
+    {
+        var filter = Builders<Link>.Filter.Eq(link => link.Id, code);
+        var update = Builders<Link>.Update.Inc(link => link.AccesCount, 1);
+        await context.Links.UpdateOneAsync(filter, update);
+    }
+
     public async Task UpdadteLink(Link link)
     {
         var filter = Builders<Link>.Filter.Eq(item => item.Id, link.Id);
