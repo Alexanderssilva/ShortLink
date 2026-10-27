@@ -9,4 +9,5 @@ public interface ILinkService
     Task<Link?> UpdateLink(Link link);
     Task<bool> DeleteLink(Link link);
     Task<Link?> GetByCodeAsync(string code);
+    Task RegisterAccessAsync(string code);
 }
