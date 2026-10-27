@@ -31,10 +31,8 @@ public class Function1(ILinkService linkService, ILogger<Function1> logger)
         try
         {
             var link = await linkService.ShortenLink(request.Url);
-            var host = req.Headers["x-forwarded-host"].FirstOrDefault()
-                       ?? req.Host.Value;
-            var scheme = req.Headers["x-forwarded-proto"].FirstOrDefault()
-                         ?? req.Scheme;
+            var host = req.Headers["x-forwarded-host"].FirstOrDefault() ?? req.Host.Value;
+            var scheme = req.Headers["x-forwarded-proto"].FirstOrDefault() ?? req.Scheme;
             var shortUrl = $"{scheme}://{host}/api/{link.Id}";
 
             logger.LogInformation("Created short link with code {Code}", link.Id);
@@ -60,6 +58,7 @@ public class Function1(ILinkService linkService, ILogger<Function1> logger)
         if (link is null)
             return new NotFoundResult();
 
+        await linkService.RegisterAccessAsync(code);
         logger.LogInformation("Redirecting short link {Code}", code);
         return new RedirectResult(link.Url!, permanent: false);
     }
