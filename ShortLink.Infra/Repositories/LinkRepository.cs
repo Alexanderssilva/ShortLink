@@ -1,37 +1,38 @@
-﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using ShortLink.Domain;
 using ShortLink.Infra.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShortLink.Infra.Repositories
+namespace ShortLink.Infra.Repositories;
+
+public class LinkRepository(MongoContext context) : ILinkRepository
 {
-    public class LinkRepository(MongoContext context) : ILinkRepository
+    public async Task CreateLink(Link link) =>
+        await context.Links.InsertOneAsync(link);
+
+    public async Task DeleteLink(string linkId)
     {
-        public async Task CreateLink(Link link) => await context.Links.InsertOneAsync(link);
+        var filter = Builders<Link>.Filter.Eq(link => link.Id, linkId);
+        await context.Links.DeleteOneAsync(filter);
+    }
 
-        public async Task DeleteLink(string linkId)
-        {
-            var filter = Builders<Link>.Filter.Eq("_id", linkId);
-            await context.Links.DeleteOneAsync(filter);
-        }
+    public async Task<List<Link>> GetUserLinks(string userId)
+    {
+        if (!Guid.TryParse(userId, out var userGuid))
+            return [];
 
-        public async Task<List<Link>> GetUserLinks(string userId)
-        {
-            var filter = Builders<Link>.Filter.Eq("_id", userId);
-            return await context.Links.Find(filter).ToListAsync();
-        }
+        var filter = Builders<Link>.Filter.Eq(link => link.UserId, userGuid);
+        return await context.Links.Find(filter).ToListAsync();
+    }
 
-        public async Task UpdadteLink(Link link)
-        {
-            var filter = Builders<Link>.Filter.Eq("_id", link.Id);
-            await context.Links.ReplaceOneAsync(filter,link);
-        }
+    public async Task<Link?> GetByCodeAsync(string code)
+    {
+        var filter = Builders<Link>.Filter.Eq(link => link.Id, code);
+        return await context.Links.Find(filter).FirstOrDefaultAsync();
+    }
 
-
+    public async Task UpdadteLink(Link link)
+    {
+        var filter = Builders<Link>.Filter.Eq(item => item.Id, link.Id);
+        await context.Links.ReplaceOneAsync(filter, link);
     }
 }
