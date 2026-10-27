@@ -1,36 +1,35 @@
-name: Deploy DotNet project to Azure Function App
+name: Deploy .NET project to Azure Function App
 
 on:
   push:
     branches:
-        - master
+      - master
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'linkShorter'   
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'     
-  DOTNET_VERSION: '8.0'                   
+  AZURE_FUNCTIONAPP_NAME: 'linkShorter'
+  DOTNET_VERSION: '8.0'
 
 jobs:
   build-and-deploy:
     runs-on: windows-latest
     steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Restore Dependencies'
-      run: dotnet restore '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+      - name: Restore dependencies
+        run: dotnet restore ShortLink.sln
 
-    - name: 'Build Project'
-      run: dotnet build --configuration Release --output ./output
+      - name: Publish Azure Function
+        run: dotnet publish ShortLink.Function/ShortLink.Function.csproj --configuration Release --output ./publish
 
-    - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v1
-      with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: './output'
-        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+      - name: Deploy Azure Function
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ./publish
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
