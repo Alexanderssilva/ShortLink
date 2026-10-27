@@ -1,17 +1,12 @@
-﻿using ShortLink.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShortLink.Domain;
 
-namespace ShortLink.Infra.Interfaces
+namespace ShortLink.Infra.Interfaces;
+
+public interface ILinkRepository
 {
-    public interface ILinkRepository
-    {
-        Task<List<Link>> GetUserLinks(string userId);
-        Task UpdadteLink(Link link);
-        Task DeleteLink(string linkId);
-        Task CreateLink(Link link);
-    }
+    Task<List<Link>> GetUserLinks(string userId);
+    Task<Link?> GetByCodeAsync(string code);
+    Task UpdadteLink(Link link);
+    Task DeleteLink(string linkId);
+    Task CreateLink(Link link);
 }
