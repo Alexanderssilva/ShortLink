@@ -15,12 +15,9 @@ public class LinkService(ILinkRepository linkRepository) : ILinkService
             throw new ArgumentException("A valid absolute HTTP or HTTPS URL is required.", nameof(url));
         }
 
-        // The repository uses Link.Id as MongoDB's document identifier.
-        // MongoDB enforces uniqueness for this identifier.
-        var code = GenerateCode();
         var link = new Link
         {
-            Id = code,
+            Id = GenerateCode(),
             UserId = Guid.Empty,
             Url = targetUri.AbsoluteUri,
             Hash = null,
@@ -40,6 +37,9 @@ public class LinkService(ILinkRepository linkRepository) : ILinkService
         var link = await linkRepository.GetByCodeAsync(code);
         return link is { Active: true } ? link : null;
     }
+
+    public Task RegisterAccessAsync(string code) =>
+        linkRepository.IncrementAccessCountAsync(code);
 
     public Task<List<Link>> GetUserLinks(string userId) =>
         linkRepository.GetUserLinks(userId);
